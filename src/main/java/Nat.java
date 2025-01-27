@@ -33,6 +33,8 @@ public class Nat {
                 case "list":
                     this.performListCommand();
                     break;
+                case "todo":
+                    this.performToDoCommand(commandParts);
                 case "mark":
                     this.performMarkCommand(commandParts);
                     break;
@@ -41,7 +43,7 @@ public class Nat {
                     break;
                 default:
                     System.out.println(SPACER + " added: " + command + "\n" + HORIZONTAL_LINE);
-                    this.taskList[this.numOfItems] = new Task(command);
+                    this.taskList[this.numOfItems] = new ToDo(command);
                     this.numOfItems++;
                     break;
             }
@@ -57,11 +59,13 @@ public class Nat {
         System.out.println(SPACER + " Here are the tasks in your list:");
         for (int i = 0; i < this.numOfItems; i++) {
             int printIndex = i + 1;
-            System.out.println(SPACER + " " + printIndex + ".["
-                    + this.taskList[i].getStatusIcon()
-                    + "] " + this.taskList[i]);
+            System.out.println(SPACER + " " + printIndex + "." + this.taskList[i]);
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performToDoCommand(String[] commandParts) {
+
     }
 
     private void performMarkCommand(String[] commandParts) {
@@ -69,9 +73,7 @@ public class Nat {
             int index = Integer.parseInt(commandParts[1]) - 1;
             this.taskList[index].markAsDone();
             System.out.println(SPACER + " Nice! I've marked this task as done:");
-            System.out.println(SPACER + "   ["
-                    + this.taskList[index].getStatusIcon()
-                    + "] " + this.taskList[index]);
+            System.out.println(SPACER + "   " + this.taskList[index]);
         } else {
             System.out.println(SPACER + "Invalid format. Use: mark <task number>");
         }
@@ -83,9 +85,7 @@ public class Nat {
             int index = Integer.parseInt(commandParts[1]) - 1;
             this.taskList[index].unmarkAsDone();
             System.out.println(SPACER + " Boo! I've marked this task as not done yet:");
-            System.out.println(SPACER + "   ["
-                    + this.taskList[index].getStatusIcon()
-                    + "] " + this.taskList[index]);
+            System.out.println(SPACER + "   " + this.taskList[index]);
         } else {
             System.out.println(SPACER + "Invalid format. Use: unmark <task number>");
         }
