@@ -1,49 +1,98 @@
 import java.util.Scanner;
 
 public class Nat {
-    private String[] toDoList;
+    private Task[] taskList;
     private int numOfItems;
     private Scanner scanner;
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";
 
     public Nat() {
-        this.toDoList = new String[100];
+        this.taskList = new Task[100];
         this.numOfItems = 0;
         this.scanner = new Scanner(System.in);
     }
 
     public static void main(String[] args) {
-        run();
+        Nat NATcb = new Nat();
+        NATcb.run();
     }
 
-    public static void run() {
-        Nat natCB = new Nat();
-        natCB.printLogo();
-        natCB.printGreeting();
+    public void run() {
+        // Print program startup information
+        this.printLogo();
+        this.printGreeting();
 
-        String command = natCB.scanner.nextLine();
+        // Prompt user for a command
+        String command = this.scanner.nextLine();
+
+        // Continue running until the user specifies "bye"
         while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                for (int i = 0; i < natCB.numOfItems; i++) {
-                    int index = i + 1;
-                    System.out.println(SPACER + " " + index + ". " + natCB.toDoList[i]);
-                }
-                System.out.println(HORIZONTAL_LINE);
-            } else {
-                System.out.println(SPACER + " added: " + command + "\n" + HORIZONTAL_LINE);
-                natCB.toDoList[natCB.numOfItems] = command;
-                natCB.numOfItems++;
+            String[] commandParts = command.split(" ", 2);
+            switch (commandParts[0]) {
+                case "list":
+                    this.performListCommand();
+                    break;
+                case "mark":
+                    this.performMarkCommand(commandParts);
+                    break;
+                case "unmark":
+                    this.performUnmarkCommand(commandParts);
+                    break;
+                default:
+                    System.out.println(SPACER + " added: " + command + "\n" + HORIZONTAL_LINE);
+                    this.taskList[this.numOfItems] = new Task(command);
+                    this.numOfItems++;
+                    break;
             }
 
-            command = natCB.scanner.nextLine();
+            command = this.scanner.nextLine();
             System.out.println(HORIZONTAL_LINE);
         }
 
-        natCB.printGoodbye();
+        this.printGoodbye();
     }
 
-    public void printLogo() {
+    private void performListCommand() {
+        System.out.println(SPACER + " Here are the tasks in your list:");
+        for (int i = 0; i < this.numOfItems; i++) {
+            int printIndex = i + 1;
+            System.out.println(SPACER + " " + printIndex + ".["
+                    + this.taskList[i].getStatusIcon()
+                    + "] " + this.taskList[i]);
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performMarkCommand(String[] commandParts) {
+        if (commandParts.length == 2) {
+            int index = Integer.parseInt(commandParts[1]) - 1;
+            this.taskList[index].markAsDone();
+            System.out.println(SPACER + " Nice! I've marked this task as done:");
+            System.out.println(SPACER + "   ["
+                    + this.taskList[index].getStatusIcon()
+                    + "] " + this.taskList[index]);
+        } else {
+            System.out.println(SPACER + "Invalid format. Use: mark <task number>");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performUnmarkCommand(String[] commandParts) {
+        if (commandParts.length == 2) {
+            int index = Integer.parseInt(commandParts[1]) - 1;
+            this.taskList[index].unmarkAsDone();
+            System.out.println(SPACER + " Boo! I've marked this task as not done yet:");
+            System.out.println(SPACER + "   ["
+                    + this.taskList[index].getStatusIcon()
+                    + "] " + this.taskList[index]);
+        } else {
+            System.out.println(SPACER + "Invalid format. Use: unmark <task number>");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void printLogo() {
         String logo = SPACER + " ____  _____       _     _________  \n"
                 + SPACER + "|_   \\|_   _|     / \\   |  _   _  | \n"
                 + SPACER + "  |   \\ | |      / _ \\  |_/ | | \\_| \n"
@@ -53,13 +102,13 @@ public class Nat {
         System.out.println(SPACER + "Hello from\n" + logo + HORIZONTAL_LINE);
     }
 
-    public void printGreeting() {
+    private void printGreeting() {
         System.out.println(SPACER + " Good day! I'm Nat!\n"
                 + SPACER + " How may I assist you today?\n"
                 + HORIZONTAL_LINE);
     }
 
-    public void printGoodbye() {
+    private void printGoodbye() {
         System.out.println(SPACER + " Byebye! Come back soon!\n"
                 + HORIZONTAL_LINE);
     }
