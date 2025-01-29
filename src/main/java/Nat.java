@@ -34,7 +34,14 @@ public class Nat {
                     this.performListCommand();
                     break;
                 case "todo":
-                    this.performToDoCommand(commandParts);
+                    String taskName = commandParts[1];
+                    this.performAddTaskCommand(new ToDo(taskName));
+                    break;
+                case "deadline":
+                    String taskName = commandParts[1].split(" /by ")[0];
+                    String dueDate = commandParts[1].split(" /by ")[1];
+                    this.performAddTaskCommand(new Deadline(taskName, dueDate));
+                    break;
                 case "mark":
                     this.performMarkCommand(commandParts);
                     break;
@@ -52,6 +59,7 @@ public class Nat {
             System.out.println(HORIZONTAL_LINE);
         }
 
+        // Exit the program
         this.printGoodbye();
     }
 
@@ -64,8 +72,13 @@ public class Nat {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private void performToDoCommand(String[] commandParts) {
-
+    private void performAddTaskCommand(Task newTask) {
+        this.taskList[this.numOfItems] = newTask;
+        this.numOfItems++;
+        System.out.println(SPACER + " Got it. I've added this task:\n"
+                + SPACER + " " + newTask + "\n"
+                + SPACER + " Now you have " + this.numOfItems + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private void performMarkCommand(String[] commandParts) {
