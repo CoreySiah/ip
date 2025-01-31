@@ -10,7 +10,7 @@ public class Nat {
 
     /**
      * Constructor for the Nat class.
-     * Initializes the task list, sets the number of items to zero,
+     * Initializes the task list, sets the number of items to zero, 
      * and prepares the scanner for user input.
      */
     public Nat() {
