@@ -1,14 +1,15 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Nat {
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
     private int numOfItems;
     private Scanner scanner;
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";
 
     public Nat() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<>();
         this.numOfItems = 0;
         this.scanner = new Scanner(System.in);
     }
@@ -52,8 +53,11 @@ public class Nat {
                 case "unmark":
                     this.performUnmarkCommand(commandParts);
                     break;
+                case "delete":
+                    this.performDeleteCommand(commandParts);
+                    break;
                 default:
-                    System.out.println(SPACER + " Oh noo! I don't know what you mean; please try again!");
+                    System.out.println(SPACER + " Oh noo! I don't know what you mean; please try again!\n" + HORIZONTAL_LINE);
                     break;
             }
 
@@ -69,7 +73,7 @@ public class Nat {
         System.out.println(SPACER + " Here are the tasks in your list:");
         for (int i = 0; i < this.numOfItems; i++) {
             int printIndex = i + 1;
-            System.out.println(SPACER + " " + printIndex + "." + this.taskList[i]);
+            System.out.println(SPACER + " " + printIndex + "." + this.taskList.get(i));
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -110,7 +114,7 @@ public class Nat {
     }
 
     private void performAddTaskCommand(Task newTask) {
-        this.taskList[this.numOfItems] = newTask;
+        this.taskList.add(newTask);
         this.numOfItems++;
         System.out.println(SPACER + " Got it. I've added this task:\n"
                 + SPACER + "   " + newTask + "\n"
@@ -121,9 +125,9 @@ public class Nat {
     private void performMarkCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
-            this.taskList[index].markAsDone();
+            this.taskList.get(index).markAsDone();
             System.out.println(SPACER + " Nice! I've marked this task as done:");
-            System.out.println(SPACER + "   " + this.taskList[index]);
+            System.out.println(SPACER + "   " + this.taskList.get(index));
         } else {
             System.out.println(SPACER + "Invalid format. Use: mark <task number>");
         }
@@ -133,11 +137,24 @@ public class Nat {
     private void performUnmarkCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
-            this.taskList[index].unmarkAsDone();
+            this.taskList.get(index).unmarkAsDone();
             System.out.println(SPACER + " Boo! I've marked this task as not done yet:");
-            System.out.println(SPACER + "   " + this.taskList[index]);
+            System.out.println(SPACER + "   " + this.taskList.get(index));
         } else {
             System.out.println(SPACER + "Invalid format. Use: unmark <task number>");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performDeleteCommand(String[] commandParts) {
+        if (commandParts.length == 2) {
+            int index = Integer.parseInt(commandParts[1]) - 1;
+            this.numOfItems++;
+            System.out.println(SPACER + " Disappeario! I've removed this task:\n"
+                    + SPACER + "   " + this.taskList.get(index) + "\n"
+                    + SPACER + " Now you have " + this.numOfItems + " tasks in the list.");
+        } else {
+            System.out.println(SPACER + "Invalid format. Use: delete <task number>");
         }
         System.out.println(HORIZONTAL_LINE);
     }
