@@ -1,0 +1,10 @@
+list
+todo finish homework
+deadline submit assignment /by 5pm
+mark 2
+list
+event attend concert /from 7pm /to 11pm
+unmark 2
+mark 3
+list
+bye

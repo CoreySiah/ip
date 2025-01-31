@@ -34,13 +34,13 @@ public class Nat {
                     this.performListCommand();
                     break;
                 case "todo":
-                    String taskName = commandParts[1];
-                    this.performAddTaskCommand(new ToDo(taskName));
+                    this.performToDoCommand(commandParts[1]);
                     break;
                 case "deadline":
-                    String taskName = commandParts[1].split(" /by ")[0];
-                    String dueDate = commandParts[1].split(" /by ")[1];
-                    this.performAddTaskCommand(new Deadline(taskName, dueDate));
+                    this.performDeadlineCommand(commandParts[1]);
+                    break;
+                case "event":
+                    this.performEventCommand(commandParts[1]);
                     break;
                 case "mark":
                     this.performMarkCommand(commandParts);
@@ -72,11 +72,41 @@ public class Nat {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    private void performToDoCommand(String newTask) {
+        String taskName = newTask.trim();
+        this.performAddTaskCommand(new ToDo(taskName));
+    }
+
+    private void performDeadlineCommand(String newTask) {
+        String[] taskParts = newTask.split(" /by ", 2);
+        if (taskParts.length < 2) {
+            System.out.println(SPACER + "Invalid format. Use: deadline <task name> /by <due date>");
+            return;
+        }
+        String taskName = taskParts[0].trim();
+        String dueDate = taskParts[1].trim();
+        this.performAddTaskCommand(new Deadline(taskName, dueDate));
+    }
+
+    private void performEventCommand(String newTask) {
+        String[] taskParts = newTask.split(" /from ", 2);
+        if (taskParts.length < 2 || !taskParts[1].contains(" /to ")) {
+            System.out.println(SPACER + "Invalid format. Use: event <task name> /from <start date> /to <end date>");
+            return;
+        }
+
+        String taskName = taskParts[0].trim();
+        String[] dateParts = taskParts[1].split(" /to ", 2);
+        String startDate = dateParts[0].trim();
+        String endDate = dateParts[1].trim();
+        this.performAddTaskCommand(new Event(taskName, startDate, endDate));
+    }
+
     private void performAddTaskCommand(Task newTask) {
         this.taskList[this.numOfItems] = newTask;
         this.numOfItems++;
         System.out.println(SPACER + " Got it. I've added this task:\n"
-                + SPACER + " " + newTask + "\n"
+                + SPACER + "   " + newTask + "\n"
                 + SPACER + " Now you have " + this.numOfItems + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
