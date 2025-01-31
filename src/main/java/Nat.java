@@ -34,7 +34,11 @@ public class Nat {
                     this.performListCommand();
                     break;
                 case "todo":
-                    this.performToDoCommand(commandParts[1]);
+                    if (commandParts.length < 2) {
+                        System.out.println(SPACER + " Invalid format. Use: todo <task name>");
+                    } else {
+                        this.performToDoCommand(commandParts[1]);
+                    }
                     break;
                 case "deadline":
                     this.performDeadlineCommand(commandParts[1]);
@@ -49,9 +53,7 @@ public class Nat {
                     this.performUnmarkCommand(commandParts);
                     break;
                 default:
-                    System.out.println(SPACER + " added: " + command + "\n" + HORIZONTAL_LINE);
-                    this.taskList[this.numOfItems] = new ToDo(command);
-                    this.numOfItems++;
+                    System.out.println(SPACER + " Oh noo! I don't know what you mean; please try again!");
                     break;
             }
 
@@ -73,6 +75,11 @@ public class Nat {
     }
 
     private void performToDoCommand(String newTask) {
+        if (newTask == null || newTask.trim().isEmpty()) {
+            System.out.println(SPACER + "Invalid format. Use: todo <task name>");
+            return;
+        }
+
         String taskName = newTask.trim();
         this.performAddTaskCommand(new ToDo(taskName));
     }
