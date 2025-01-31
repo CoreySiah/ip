@@ -8,17 +8,32 @@ public class Nat {
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";
 
+    /**
+     * Constructor for the Nat class.
+     * Initializes the task list, sets the number of items to zero,
+     * and prepares the scanner for user input.
+     */
     public Nat() {
         this.taskList = new ArrayList<>();
         this.numOfItems = 0;
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * The main method serves as the entry point for the program.
+     * It initializes the application by creating an instance of the Nat
+     * class and starts its execution loop.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
         Nat NATcb = new Nat();
         NATcb.run();
     }
 
+    /**
+     * Starts the main program execution loop for the Nat application.
+     */
     public void run() {
         // Print program startup information
         this.printLogo();
