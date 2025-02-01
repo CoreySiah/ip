@@ -1,5 +1,10 @@
 import java.util.Scanner;
+
 import java.util.ArrayList;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Nat {
     private ArrayList<Task> taskList;
@@ -10,7 +15,7 @@ public class Nat {
 
     /**
      * Constructor for the Nat class.
-     * Initializes the task list, sets the number of items to zero, 
+     * Initializes the task list, sets the number of items to zero,
      * and prepares the scanner for user input.
      */
     public Nat() {
@@ -79,6 +84,9 @@ public class Nat {
             command = this.scanner.nextLine();
             System.out.println(HORIZONTAL_LINE);
         }
+
+        // Save the loaded task list into a .txt file
+        this.performSave();
 
         // Exit the program
         this.printGoodbye();
@@ -170,6 +178,21 @@ public class Nat {
                     + SPACER + " Now you have " + this.numOfItems + " tasks in the list.");
         } else {
             System.out.println(SPACER + "Invalid format. Use: delete <task number>");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performSave() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/data/data.txt"))) {
+            for (Task task : this.taskList) {
+                if (task != null) {
+                    writer.write(task.toSaveFormat());
+                    writer.newLine();
+                }
+            }
+            System.out.println(SPACER + " Yay! Tasks successfully saved to tasks.txt");
+        } catch (IOException e) {
+            System.out.println(SPACER + " Nay! An error occurred while saving tasks: " + e.getMessage());
         }
         System.out.println(HORIZONTAL_LINE);
     }
