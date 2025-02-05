@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+
 public class Nat {
     private ArrayList<Task> taskList;
     private int numOfItems;
@@ -36,6 +38,8 @@ public class Nat {
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
+        // LocalDate date = LocalDate.of(2019, 10, 15);
+        // System.out.println(date.getMonth());
         Nat NATcb = new Nat();
         NATcb.run();
     }
@@ -234,6 +238,7 @@ public class Nat {
                             this.addTask(new Event(taskName, startDate, dueDate));
                         } else {
                             System.out.println(SPACER + " Oops! Warning: Invalid event task format. Skipping...");
+                            System.out.println(HORIZONTAL_LINE);
                             line = reader.readLine();
                             continue;
                         }

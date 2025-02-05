@@ -1,3 +1,2 @@
 T | 0 | sleep
-E | 0 | artbox | 5pm | 9pm
-D | 1 | submission | 4pm
+E | 0 | artbox | 4/1/6969 1420 | 31/12/9999 2359
