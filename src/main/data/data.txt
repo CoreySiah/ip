@@ -1,1 +1,3 @@
-D | 0 | run
+T | 0 | sleep
+E | 0 | artbox | 5pm | 9pm
+D | 1 | submission | 4pm

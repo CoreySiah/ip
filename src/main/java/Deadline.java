@@ -7,6 +7,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        // Format: "T | 1 | Read a book | 21 Mar 25"
+        return super.toSaveFormat() + " | " + this.dueDate;
+    }
+
+    @Override
     public String getTaskType() {
         return "D";
     }

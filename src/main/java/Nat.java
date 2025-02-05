@@ -1,10 +1,14 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import java.io.IOException;
+
 import java.util.Scanner;
 
 import java.util.ArrayList;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Nat {
     private ArrayList<Task> taskList;
@@ -43,6 +47,9 @@ public class Nat {
         // Print program startup information
         this.printLogo();
         this.printGreeting();
+
+        // Load the saved .txt file task list
+        this.performLoad();
 
         // Prompt user for a command
         String command = this.scanner.nextLine();
@@ -136,6 +143,12 @@ public class Nat {
         this.performAddTaskCommand(new Event(taskName, startDate, endDate));
     }
 
+    // Use when loading in saved tasks (w/o message)
+    private void addTask(Task newTask) {
+        this.taskList.add(newTask);
+        this.numOfItems++;
+    }
+
     private void performAddTaskCommand(Task newTask) {
         this.taskList.add(newTask);
         this.numOfItems++;
@@ -172,14 +185,75 @@ public class Nat {
     private void performDeleteCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
-            this.numOfItems++;
+            String removedTask = this.taskList.get(index).toString();
+            this.taskList.remove(index);
+            this.numOfItems--;
             System.out.println(SPACER + " Disappeario! I've removed this task:\n"
-                    + SPACER + "   " + this.taskList.get(index) + "\n"
+                    + SPACER + "   " + removedTask + "\n"
                     + SPACER + " Now you have " + this.numOfItems + " tasks in the list.");
+
         } else {
             System.out.println(SPACER + "Invalid format. Use: delete <task number>");
         }
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    private void performLoad() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/data/data.txt"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                String[] taskParts = line.split(" \\| ");
+                if (taskParts.length < 3) {
+                    System.out.println(SPACER + " Oops! Warning: Invalid task format in data file. Skipping...");
+                    line = reader.readLine();
+                    continue;
+                }
+
+                String taskType = taskParts[0];
+                boolean isDone = taskParts[1].equals("1");
+                String taskName = taskParts[2];
+
+                switch (taskType) {
+                    case "T":
+                        this.addTask(new ToDo(taskName));
+                        break;
+                    case "D":
+                        if (taskParts.length == 4) {
+                            String dueDate = taskParts[3];  // Due date for the deadline
+                            this.addTask(new Deadline(taskName, dueDate));
+                        } else {
+                            System.out.println(SPACER + " Oops! Warning: Invalid deadline task format. Skipping...");
+                            line = reader.readLine();
+                            continue;
+                        }
+                        break;
+                    case "E":
+                        if (taskParts.length == 5) {
+                            String startDate = taskParts[3];  // Start date for the event
+                            String dueDate = taskParts[4];  // Due date for the event
+                            this.addTask(new Event(taskName, startDate, dueDate));
+                        } else {
+                            System.out.println(SPACER + " Oops! Warning: Invalid event task format. Skipping...");
+                            line = reader.readLine();
+                            continue;
+                        }
+                        break;
+                    default:
+                        continue;
+                }
+
+                // Mark the new task as done according to it's boolean
+                if (isDone) {
+                    this.taskList.get(this.numOfItems - 1).markAsDone();
+                }
+
+                // Read the next line
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println(SPACER + " Nay! An error occurred while loading tasks: " + e.getMessage());
+        }
+
     }
 
     private void performSave() {

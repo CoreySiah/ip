@@ -20,7 +20,7 @@ public class Task {
     }
 
     public String toSaveFormat() {
-        // Format: "T | 1 | Read a book"
+        // Format: "U | 1 | Read a book"
         String status = this.isDone ? "1" : "0";
         return getTaskType() + " | " + status + " | " + this.taskName;
     }

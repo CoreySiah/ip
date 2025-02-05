@@ -4,6 +4,12 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toSaveFormat() {
+        // Format: "T | 1 | Read a book"
+        return super.toSaveFormat();
+    }
+
+    @Override
     public String getTaskType() {
         return "T";
     }
