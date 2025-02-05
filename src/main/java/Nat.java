@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class Nat {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
     private ArrayList<Task> taskList;
     private int numOfItems;
     private Scanner scanner;
