@@ -1,3 +1,5 @@
+package Nat;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
@@ -6,11 +8,7 @@ import java.io.FileReader;
 
 import java.io.IOException;
 
-import java.util.Scanner;
-
 import java.util.ArrayList;
-
-import java.time.LocalDate;
 
 public class Storage {
     private String fileName;

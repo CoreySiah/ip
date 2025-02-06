@@ -1,3 +1,5 @@
+package Nat;
+
 import java.util.Scanner;
 
 public class Nat {
@@ -15,7 +17,7 @@ public class Nat {
      */
     public Nat() {
         this.ui = new Ui();
-        this.storage = new Storage("src/main/data/data.txt");
+        this.storage = new Storage("src/main/java/data/data.txt");
         this.taskList = new TaskList(storage.load());
         this.scanner = new Scanner(System.in);
     }
