@@ -3,6 +3,9 @@ package Nat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline class represents the class for tasks to be done w/ a due date.
+ */
 public class Deadline extends Task {
     private LocalDateTime dueDate;
 

@@ -1,5 +1,8 @@
 package Nat;
 
+/**
+ * The TDo class represents the class for tasks to be done w/o due dates.
+ */
 public class ToDo extends Task {
     public ToDo(String taskName) {
         super(taskName);

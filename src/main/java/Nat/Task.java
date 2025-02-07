@@ -1,6 +1,8 @@
 package Nat;
 
-
+/**
+ * The Task class represents the class for general tasks.
+ */
 public class Task {
     protected String taskName;
     protected boolean isDone;

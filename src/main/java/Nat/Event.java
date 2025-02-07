@@ -3,6 +3,9 @@ package Nat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class represents the class for tasks to be done w/ a start and due date.
+ */
 public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime dueDate;
