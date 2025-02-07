@@ -2,6 +2,11 @@ package Nat;
 
 import java.util.Scanner;
 
+/**
+ * The Nat class represents the main application for a task management chatbot.
+ * It initializes core components such as the user interface, storage, and task list,
+ * and handles the main command execution loop.
+ */
 public class Nat {
     private Ui ui;
     private Storage storage;

@@ -2,6 +2,9 @@ package Nat;
 
 import java.util.ArrayList;
 
+/**
+ * The Ui class represents the component which handles user interface (e.g. printing).
+ */
 public class Ui {
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";

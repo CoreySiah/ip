@@ -2,6 +2,10 @@ package Nat;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents the component which handles containing the primary
+ * task list.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private int numOfItems;
@@ -78,6 +82,9 @@ public class TaskList {
         this.numOfItems++;
     }
 
+    /**
+     * Unmask a specific task.
+     */
     private void performAddTaskCommand(Task newTask) {
         this.taskList.add(newTask);
         this.numOfItems++;
@@ -87,6 +94,9 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Mark a specific task.
+     */
     public void performMarkCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
@@ -99,6 +109,9 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Unmark a specific task.
+     */
     public void performUnmarkCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
@@ -111,6 +124,9 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Delete a specific task.
+     */
     public void performDeleteCommand(String[] commandParts) {
         if (commandParts.length == 2) {
             int index = Integer.parseInt(commandParts[1]) - 1;
@@ -127,6 +143,9 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Return the entire task list as an ArrayList.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }

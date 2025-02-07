@@ -10,6 +10,10 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * The Storage class represents the component which handles loading and saving the task list
+ * into a separate .txt file.
+ */
 public class Storage {
     private String fileName;
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
@@ -19,6 +23,9 @@ public class Storage {
         this.fileName = fileName; // fileName = "src/main/data/data.txt"
     }
 
+    /**
+     * Load the saved task list from a .txt file for usage.
+     */
     public ArrayList<Task> load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.fileName))) {
             String line = reader.readLine();
@@ -89,6 +96,9 @@ public class Storage {
         return new ArrayList<>();
     }
 
+    /**
+     * Save the cached task list into a .txt file for non-volatile storage.
+     */
     public void save(ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.fileName))) {
             for (Task task : taskList) {
