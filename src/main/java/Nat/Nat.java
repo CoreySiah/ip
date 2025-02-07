@@ -90,7 +90,7 @@ public class Nat {
         // Save the loaded task list into a .txt file
         this.storage.save(this.taskList.getTaskList());
 
-        // Exit program
+        // Exit the program
         this.ui.printGoodbye();
     }
 }
