@@ -75,6 +75,9 @@ public class Nat {
                 case "delete":
                     this.taskList.performDeleteCommand(commandParts);
                     break;
+                case "find":
+                    this.taskList.performFindCommand(commandParts[1]);
+                    break;
                 default:
                     this.ui.printErrorCommand();
                     break;

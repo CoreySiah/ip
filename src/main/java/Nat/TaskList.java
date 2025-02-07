@@ -143,6 +143,18 @@ public class TaskList {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public void performFindCommand(String keyword) {
+        int printIndex = 1;
+        System.out.println(SPACER + " Here are the matching tasks in your list:");
+        for (int i = 0; i < this.numOfItems; i++) {
+            if (this.taskList.get(i).getTaskName().contains(keyword)) {
+                System.out.println(SPACER + " " + printIndex + "." + this.taskList.get(i));
+                printIndex++;
+            }
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     /**
      * Return the entire task list as an ArrayList.
      */
