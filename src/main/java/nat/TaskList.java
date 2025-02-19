@@ -130,7 +130,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a specific task.
+     * Delete a specific task
      */
     public String performDeleteCommand(String[] commandParts) {
         if (commandParts.length == 2) {
