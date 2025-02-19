@@ -72,7 +72,7 @@ public class TaskList {
             return "Invalid format. Use: deadline <task name> /by <date> <time>\nExample: deadline finish project /by 5/12/2034 1800";
         }
 
-        String taskName = taskParts[0].trim();
+        String taskName = taskParts[0].substring(9).trim();
         String dueDate = taskParts[1].trim();
 
         // Validate date format before proceeding
@@ -97,7 +97,7 @@ public class TaskList {
             return "Invalid format. Use: event <task name> /from <start date> <start time> /to <end date> <end time>\nExample: event conference /from 5/12/2034 0900 /to 5/12/2034 1800";
         }
 
-        String taskName = taskParts[0].trim();
+        String taskName = taskParts[0].substring(6).trim();
         String[] dateParts = taskParts[1].split(" /to ", 2);
         String startDate = dateParts[0].trim();
         String endDate = dateParts[1].trim();
@@ -165,18 +165,26 @@ public class TaskList {
      * @return A success message or an error message if the format is incorrect.
      */
     public String performDeleteCommand(String[] commandParts) {
-        if (!isValidCommandParts(commandParts, 2) || !isValidIndex(Integer.parseInt(commandParts[1]))) {
+        if (!isValidCommandParts(commandParts, 2)) {
             return "Invalid format. Use: delete <task number>";
         }
 
-        int index = Integer.parseInt(commandParts[1]) - 1;
-        if (!isValidIndex(index)) {return "Invalid task number!";}
-        String removedTask = this.taskList.get(index).toString();
-        this.taskList.remove(index);
-        this.numOfItems--;
-        return "Disappeario! I've removed this task:\n"
-                + removedTask + "\n"
-                + "Now you have " + this.numOfItems + " tasks in the list.";
+        try {
+            int index = Integer.parseInt(commandParts[1]) - 1;
+
+            if (!isValidIndex(index)) {
+                return "Invalid task number!";
+            }
+
+            String removedTask = this.taskList.get(index).toString();
+            this.taskList.remove(index);
+            this.numOfItems--;
+
+            return "Disappeario! I've removed this task:\n" + removedTask +
+                    "\nNow you have " + this.numOfItems + " tasks in the list.";
+        } catch (NumberFormatException e) {
+            return "Invalid input! Task number must be a valid integer.";
+        }
     }
 
     /**
@@ -252,7 +260,7 @@ public class TaskList {
      * @return true if the index is valid, false otherwise.
      */
     private boolean isValidIndex(int index) {
-        return index > 0 && index <= this.numOfItems;
+        return index >= 0 && index <= this.numOfItems;
     }
 
     /**
