@@ -1,4 +1,4 @@
-package Nat;
+package nat;
 
 /**
  * The Task class represents the class for general tasks.
@@ -7,6 +7,10 @@ public class Task {
     protected String taskName;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task class
+     * @param taskName Name of the new task
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;

@@ -1,4 +1,4 @@
-package Nat;
+package nat;
 
 import javafx.application.Application;
 

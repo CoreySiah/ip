@@ -1,13 +1,10 @@
-package Nat;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+package nat;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
-
+import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 /**
@@ -15,9 +12,9 @@ import java.util.ArrayList;
  * into a separate .txt file.
  */
 public class Storage {
-    private String fileName;
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";
+    private String fileName;
 
     public Storage(String fileName) {
         this.fileName = fileName; // fileName = "src/main/data/data.txt"
@@ -45,36 +42,36 @@ public class Storage {
                 String taskName = taskParts[2];
 
                 switch (taskType) {
-                    case "T":
-                        taskList.add(new ToDo(taskName));
+                case "T":
+                    taskList.add(new ToDo(taskName));
+                    numOfItems++;
+                    break;
+                case "D":
+                    if (taskParts.length == 4) {
+                        String dueDate = taskParts[3]; // Due date for the deadline
+                        taskList.add(new Deadline(taskName, dueDate));
                         numOfItems++;
-                        break;
-                    case "D":
-                        if (taskParts.length == 4) {
-                            String dueDate = taskParts[3];  // Due date for the deadline
-                            taskList.add(new Deadline(taskName, dueDate));
-                            numOfItems++;
-                        } else {
-                            System.out.println(SPACER + " Oops! Warning: Invalid deadline task format. Skipping...");
-                            line = reader.readLine();
-                            continue;
-                        }
-                        break;
-                    case "E":
-                        if (taskParts.length == 5) {
-                            String startDate = taskParts[3];  // Start date for the event
-                            String dueDate = taskParts[4];  // Due date for the event
-                            taskList.add(new Event(taskName, startDate, dueDate));
-                            numOfItems++;
-                        } else {
-                            System.out.println(SPACER + " Oops! Warning: Invalid event task format. Skipping...");
-                            System.out.println(HORIZONTAL_LINE);
-                            line = reader.readLine();
-                            continue;
-                        }
-                        break;
-                    default:
+                    } else {
+                        System.out.println(SPACER + " Oops! Warning: Invalid deadline task format. Skipping...");
+                        line = reader.readLine();
                         continue;
+                    }
+                    break;
+                case "E":
+                    if (taskParts.length == 5) {
+                        String startDate = taskParts[3]; // Start date for the event
+                        String dueDate = taskParts[4]; // Due date for the event
+                        taskList.add(new Event(taskName, startDate, dueDate));
+                        numOfItems++;
+                    } else {
+                        System.out.println(SPACER + " Oops! Warning: Invalid event task format. Skipping...");
+                        System.out.println(HORIZONTAL_LINE);
+                        line = reader.readLine();
+                        continue;
+                    }
+                    break;
+                default:
+                    continue;
                 }
 
                 // Mark the new task as done according to it's boolean
@@ -107,10 +104,9 @@ public class Storage {
                     writer.newLine();
                 }
             }
-            System.out.println(SPACER + " Yay! Tasks successfully saved to tasks.txt");
+            System.out.println("Yay! Tasks successfully saved to tasks.txt");
         } catch (IOException e) {
-            System.out.println(SPACER + " Nay! An error occurred while saving tasks: " + e.getMessage());
+            System.out.println("Nay! An error occurred while saving tasks: " + e.getMessage());
         }
-        System.out.println(HORIZONTAL_LINE);
     }
 }

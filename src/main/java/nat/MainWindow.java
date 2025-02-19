@@ -1,4 +1,4 @@
-package Nat;
+package nat;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -44,8 +44,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Nat.Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Nat.Duke's reply and then appends
+     * them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -60,6 +60,8 @@ public class MainWindow extends AnchorPane {
 
         // Exit the application if the user inputs "bye"
         if (input.equalsIgnoreCase("bye")) {
+            System.out.println("Saving tasks before exiting...");
+            nat.storage.save(nat.taskList.getTaskList());
             Platform.exit();
             System.exit(0);
         }

@@ -1,4 +1,4 @@
-package Nat;
+package nat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,16 +9,27 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime dueDate;
 
+    /**
+     * Constructor for Deadline class
+     * @param taskName Name of the task
+     * @param dueDate Task deadline date
+     */
     public Deadline(String taskName, String dueDate) {
         super(taskName);
         this.dueDate = this.parseDateTime(dueDate);
     }
 
+    /**
+     * Transform the date input from String into LocalDateTime
+     */
     private LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return LocalDateTime.parse(dateTime, inputFormat);
     }
 
+    /**
+     * Override and return the parent class Task save format
+     */
     @Override
     public String toSaveFormat() {
         // Format: "T | 1 | Read a book | 21 Mar 25"
@@ -26,6 +37,9 @@ public class Deadline extends Task {
         return super.toSaveFormat() + " | " + this.dueDate.format(format);
     }
 
+    /**
+     * Override and return the Deadline task type
+     */
     @Override
     public String getTaskType() {
         return "D";

@@ -1,4 +1,4 @@
-package Nat;
+package nat;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,8 @@ import java.util.ArrayList;
  * task list.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
     private int numOfItems;
-    private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
-    private static final String SPACER = "    ";
+    private ArrayList<Task> taskList;
 
     /**
      * Constructor for the TaskList class.
@@ -18,8 +16,8 @@ public class TaskList {
      * and prepares the scanner for user input.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
         this.numOfItems = 0;
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -32,6 +30,10 @@ public class TaskList {
         this.numOfItems = taskList.size();
     }
 
+    /**
+     * Execute the list command and return a list of all tasks
+     * @return List of tasks
+     */
     public String performListCommand() {
         String fullList = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.numOfItems; i++) {
@@ -41,6 +43,11 @@ public class TaskList {
         return fullList;
     }
 
+    /**
+     * Add TDo task to the task list
+     * @param newTask Name of the new task
+     * @return Success or unsuccessful message
+     */
     public String performToDoCommand(String newTask) {
         if (newTask == null || newTask.trim().isEmpty()) {
             return "Invalid format. Use: todo <task name>";
@@ -50,6 +57,11 @@ public class TaskList {
         return this.performAddTaskCommand(new ToDo(taskName));
     }
 
+    /**
+     * Add Deadline task to the task list
+     * @param newTask Name of the new task
+     * @return Success or unsuccessful message
+     */
     public String performDeadlineCommand(String newTask) {
         String[] taskParts = newTask.split(" /by ", 2);
         if (taskParts.length < 2) {
@@ -60,6 +72,11 @@ public class TaskList {
         return this.performAddTaskCommand(new Deadline(taskName, dueDate));
     }
 
+    /**
+     * Add Event task to the task list
+     * @param newTask Name of the new task
+     * @return Success or unsuccessful message
+     */
     public String performEventCommand(String newTask) {
         String[] taskParts = newTask.split(" /from ", 2);
         if (taskParts.length < 2 || !taskParts[1].contains(" /to ")) {
@@ -73,14 +90,10 @@ public class TaskList {
         return this.performAddTaskCommand(new Event(taskName, startDate, endDate));
     }
 
-    // Use when loading in saved tasks (w/o message)
-    private void addTask(Task newTask) {
-        this.taskList.add(newTask);
-        this.numOfItems++;
-    }
-
     /**
-     * Unmask a specific task.
+     * Add a generic task
+     * @param newTask New Task, applying polymorphism
+     * @return Success or unsuccessful message
      */
     private String performAddTaskCommand(Task newTask) {
         this.taskList.add(newTask);
@@ -134,6 +147,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find a specific task from the task list
+     * @param keyword Keyword to search for
+     * @return Success or unsuccessful message
+     */
     public String performFindCommand(String keyword) {
         int printIndex = 1;
         String foundMessage = "Here are the matching tasks in your list:\n";
