@@ -19,9 +19,6 @@ public class Nat {
         this.storage = new Storage("src/main/java/data/data.txt");
         this.taskList = new TaskList(storage.load());
         this.ui = new Ui();
-
-        // Assertion: TaskList should never be null after initialization
-        assert this.taskList != null : "TaskList should not be null!";
     }
 
     /**
