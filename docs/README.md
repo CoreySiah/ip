@@ -151,16 +151,17 @@ bye
 ---
 
 ## **Command Summary**
-| Command                                                                       | Description                  |
-|-------------------------------------------------------------------------------|------------------------------|
-| `todo <task_name>`                                                            | Adds a ToDo task             |
-| `deadline <task_name> /by <date> <time>`                                      | Adds a Deadline task         |
-| `event <task_name> /from <start_date> <start_time> /to <end_date> <end_time>` | Adds an Event task           |
-| `list`                                                                        | Shows all tasks              |
-| `mark <task_number>`                                                          | Marks a task as done         |
-| `unmark <task_number>`                                                        | Marks a task as not done     |
-| `delete <task_number>`                                                        | Deletes a task               |
-| `find <keyword>`                                                              | Finds tasks with the keyword |
-| `sort`                                                                        | Sorts tasks alphabetically   |
-| `bye`                                                                         | Exits the application        |
+## Command Summary
 
+| Command | Description |
+|---------|------------|
+| `todo <task_name>` | Adds a ToDo task |
+| `deadline <task_name> /by <date> <time>` | Adds a Deadline task |
+| `event <task_name> /from <start_date> <start_time> /to <end_date> <end_time>` | Adds an Event task |
+| `list` | Shows all tasks |
+| `mark <task_number>` | Marks a task as done |
+| `unmark <task_number>` | Marks a task as not done |
+| `delete <task_number>` | Deletes a task |
+| `find <keyword>` | Finds tasks with the keyword |
+| `sort` | Sorts tasks alphabetically |
+| `bye` | Exits the application |
