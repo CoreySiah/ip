@@ -1,19 +1,24 @@
 package nat;
 
 /**
- * The TDo class represents the class for tasks to be done w/o due dates.
+ * Represents a to-do task without a due date.
+ * Inherits from the {@link Task} class.
  */
 public class ToDo extends Task {
     /**
-     * Constructor for TDo class
-     * @param taskName Name of the task
+     * Creates a new to-do task.
+     *
+     * @param taskName The name or description of the task.
      */
     public ToDo(String taskName) {
         super(taskName);
     }
 
     /**
-     * Override and return the parent class Task save format
+     * Returns the formatted string representation of the task for storage.
+     * Inherits the format from the parent class {@link Task}.
+     *
+     * @return A formatted string representation of the task for saving.
      */
     @Override
     public String toSaveFormat() {
@@ -22,13 +27,20 @@ public class ToDo extends Task {
     }
 
     /**
-     * Override and return the TDo task type
+     * Returns the task type identifier for to-do tasks.
+     *
+     * @return The letter "T", representing a to-do task.
      */
     @Override
     public String getTaskType() {
         return "T";
     }
 
+    /**
+     * Returns the string representation of the to-do task.
+     *
+     * @return A formatted string representing the task.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

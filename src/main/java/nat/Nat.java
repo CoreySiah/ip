@@ -1,18 +1,19 @@
 package nat;
 
 /**
- * The Nat class represents the main application for a task management chatbot.
- * It initializes core components such as the user interface, storage, and task list,
- * and handles the main command execution loop.
+ * The core class for the Nat chatbot, responsible for task management and command execution.
+ * This class initializes essential components such as storage and the task list.
  */
 public class Nat {
     protected Storage storage;
     protected TaskList taskList;
 
     /**
-     * Constructor for the Nat class.
-     * Initializes the task list, sets the number of items to zero,
-     * and prepares the scanner for user input.
+     * Initializes the Nat chatbot, loading stored tasks and preparing for user interaction.
+     * The task list is retrieved from persistent storage.
+     * <p>
+     * An assertion is used to ensure that the task list is not null after initialization.
+     * </p>
      */
     public Nat() {
         this.storage = new Storage("src/main/java/data/data.txt");
@@ -23,9 +24,14 @@ public class Nat {
     }
 
     /**
-     * Execute the input command from MainWindow class
-     * @param command String input command
-     * @return Completed message after executing command
+     * Processes and executes the given command string.
+     * <p>
+     * The method interprets the command and delegates execution to the corresponding task operation.
+     * If the command is unrecognized, an error message is returned.
+     * </p>
+     *
+     * @param command The command input by the user.
+     * @return A response message indicating the result of the command execution.
      */
     public String executeCommand(String command) {
         String[] commandParts = command.split(" ", 2);
@@ -33,11 +39,11 @@ public class Nat {
         case "list":
             return this.taskList.performListCommand();
         case "todo":
-            return this.taskList.performToDoCommand(commandParts[1]);
+            return this.taskList.performToDoCommand(commandParts);
         case "deadline":
-            return this.taskList.performDeadlineCommand(commandParts[1]);
+            return this.taskList.performDeadlineCommand(command);
         case "event":
-            return this.taskList.performEventCommand(commandParts[1]);
+            return this.taskList.performEventCommand(command);
         case "mark":
             return this.taskList.performMarkCommand(commandParts);
         case "unmark":
@@ -45,7 +51,7 @@ public class Nat {
         case "delete":
             return this.taskList.performDeleteCommand(commandParts);
         case "find":
-            return this.taskList.performFindCommand(commandParts[1]);
+            return this.taskList.performFindCommand(commandParts);
         case "sort":
             return this.taskList.performSortCommand();
         default:

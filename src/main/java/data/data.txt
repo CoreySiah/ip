@@ -2,4 +2,6 @@ E | 0 | artbox | 4/1/6969 1420 | 31/12/9999 2359
 T | 0 | beatbox
 T | 1 | gym
 D | 0 | submission | 12/12/2001 1600
-T | 1 | watch lecture
+T | 0 | battle
+T | 0 | sleep
+E | 0 | event woah | 6/6/2020 1600 | 7/7/2021 1600

@@ -2,26 +2,41 @@ package nat;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The Storage class represents the component which handles loading and saving the task list
- * into a separate .txt file.
+ * Handles loading and saving tasks from/to a text file.
+ * <p>
+ * This class is responsible for persisting the task list in a non-volatile storage
+ * by reading from and writing to a file.
+ * </p>
  */
 public class Storage {
     private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private static final String SPACER = "    ";
     private String fileName;
 
+    /**
+     * Creates a Storage instance with the specified file path.
+     *
+     * @param fileName The path to the data file (e.g., "src/main/data/data.txt").
+     */
     public Storage(String fileName) {
         this.fileName = fileName; // fileName = "src/main/data/data.txt"
+        ensureFileExists();
     }
 
     /**
-     * Load the saved task list from a .txt file for usage.
+     * Loads tasks from the storage file.
+     * <p>     * Reads tasks from the specified file and reconstructs them into an {@code ArrayList<Task>}.
+     * Invalid task formats are skipped with warnings.
+     * </p>
+     *
+     * @return A list of tasks loaded from the file. Returns an empty list if an error occurs.
      */
     public ArrayList<Task> load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.fileName))) {
@@ -94,7 +109,13 @@ public class Storage {
     }
 
     /**
-     * Save the cached task list into a .txt file for non-volatile storage.
+     * Saves the given task list to the storage file.
+     * <p>
+     * Iterates through the list and writes each task in a structured format to ensure
+     * proper retrieval during loading.
+     * </p>
+     *
+     * @param taskList The list of tasks to save.
      */
     public void save(ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.fileName))) {
@@ -107,6 +128,24 @@ public class Storage {
             System.out.println("Yay! Tasks successfully saved to tasks.txt");
         } catch (IOException e) {
             System.out.println("Nay! An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Ensures the storage file exists. If it does not, the method creates it along
+     * with any missing directories.
+     */
+    private void ensureFileExists() {
+        File file = new File(fileName);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                if (file.createNewFile()) {
+                    System.out.println("Storage file created: " + fileName);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error: Unable to create storage file at " + fileName + " - " + e.getMessage());
         }
     }
 }

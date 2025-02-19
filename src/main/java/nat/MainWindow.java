@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for the main GUI.
+ * Manages user interactions, message handling, and chatbot responses.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -27,12 +28,19 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image natImage = new Image(this.getClass().getResourceAsStream("/images/DaNat.png"));
 
+    /**
+     * Initializes the GUI by binding the scroll pane to automatically scroll to the latest message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Nat instance */
+    /**
+     * Injects the Nat instance and displays a welcome message.
+     *
+     * @param nat The chatbot instance.
+     */
     public void setNat(Nat nat) {
         this.nat = nat;
 
@@ -44,18 +52,25 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Nat.Duke's reply and then appends
-     * them to the dialog container. Clears the user input after processing.
+     * Handles user input by creating two dialog boxes:
+     * one displaying the user's message and another showing the chatbot's response.
+     * The user input field is cleared after processing.
+     * If the user enters "bye", the application saves tasks and exits.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = nat.executeCommand(input);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNatDialog(response, natImage)
-        );
+        // Add user input to the dialog
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+
+        // Show error message in a different format, else show normal reply
+        if (response.startsWith("Oh no!")) {
+            dialogContainer.getChildren().add(DialogBox.getErrorDialog(response, natImage));
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getNatDialog(response, natImage));
+        }
 
         userInput.clear();
 
