@@ -5,8 +5,7 @@
 Welcome to **Nat**, a task management chatbot that helps you organize your tasks efficiently through a GUI interface.
 
 ## **Table of Contents**
-1. [Quick Start](#how-to-start)
-2. [Features](#features)
+1. [Features](#features)
     - [Adding Tasks](#adding-tasks)
     - [Listing Tasks](#listing-tasks)
     - [Marking/Unmarking Tasks](#markingunmarking-tasks)
@@ -15,26 +14,7 @@ Welcome to **Nat**, a task management chatbot that helps you organize your tasks
     - [Sorting Tasks](#sorting-tasks)
     - [Saving & Loading](#saving--loading)
     - [Exiting the Application](#exiting-the-application)
-3. [Command Summary](#command-summary)
-
----
-
-## **How To Start**
-1. **Download Nat**
-    - Ensure you have **Java 17 or later** installed.
-    - Download `nat.jar` from [GitHub Releases](#).
-
-2. **Run Nat**
-    - CLI: Open a terminal and run:
-      ```
-      java -jar nat.jar
-      ```
-    - GUI: Run `nat.jar` by double-clicking.
-
-3. **Start managing tasks!**
-    - Try `todo Buy groceries`
-    - Type `list` to view tasks
-    - Use `bye` to exit
+2. [Command Summary](#command-summary)
 
 ---
 
