@@ -151,7 +151,6 @@ bye
 ---
 
 ## **Command Summary**
-
 | Command | Description |
 |---------|------------|
 | `todo <task_name>` | Adds a ToDo task |
