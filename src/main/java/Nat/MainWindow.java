@@ -1,5 +1,6 @@
 package Nat;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Nat nat;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -32,8 +33,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Nat.Duke instance */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Nat nat) {
+        this.nat = nat;
+
+        // Return welcome message after Nat is initialized
+        String welcomeMessage = "Good day! I'm Nat!\nHow may I assist you today?\n";
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     /**
@@ -43,11 +50,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = nat.executeCommand(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
+
+        // Exit the application if the user inputs "bye"
+        if (input.equalsIgnoreCase("bye")) {
+            Platform.exit();
+            System.exit(0);
+        }
     }
 }

@@ -12,8 +12,8 @@ public class Ui {
     public Ui() {
     }
 
-    public void printErrorCommand() {
-        System.out.println(SPACER + " Oh noo! I don't know what you mean; please try again!\n" + HORIZONTAL_LINE);
+    public String printErrorCommand() {
+        return "Oh noo! I don't know what you mean; please try again!";
     }
 
     // Print task list
