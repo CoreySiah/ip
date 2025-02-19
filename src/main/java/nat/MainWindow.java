@@ -25,21 +25,21 @@ public class MainWindow extends AnchorPane {
     private Nat nat;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image natImage = new Image(this.getClass().getResourceAsStream("/images/DaNat.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Nat.Duke instance */
-    public void setDuke(Nat nat) {
+    /** Injects the Nat instance */
+    public void setNat(Nat nat) {
         this.nat = nat;
 
         // Return welcome message after Nat is initialized
         String welcomeMessage = "Good day! I'm Nat!\nHow may I assist you today?\n";
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+                DialogBox.getNatDialog(welcomeMessage, natImage)
         );
     }
 
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getNatDialog(response, natImage)
         );
 
         userInput.clear();

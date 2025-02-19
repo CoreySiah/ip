@@ -62,7 +62,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img, true, false);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getNatDialog(String text, Image img) {
         var db = new DialogBox(text, img, false, false);
         db.flip();
         return db;
