@@ -47,6 +47,8 @@ public class Nat {
             return this.taskList.performDeleteCommand(commandParts);
         case "find":
             return this.taskList.performFindCommand(commandParts[1]);
+        case "sort":
+            return this.taskList.performSortCommand();
         default:
             return "Oh no! I do not understand that command; please try again!";
         }

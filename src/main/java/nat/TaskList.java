@@ -1,6 +1,8 @@
 package nat;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The TaskList class represents the component which handles containing the primary
@@ -162,6 +164,19 @@ public class TaskList {
             }
         }
         return foundMessage;
+    }
+
+    /**
+     * Sort the task list alphabetically
+     * @return Success or unsuccessful message
+     */
+    public String performSortCommand() {
+        if (taskList.isEmpty()) {
+            return "Your task list is empty! Nothing to sort.";
+        }
+
+        Collections.sort(taskList, Comparator.comparing(Task::getTaskName));
+        return "Tasks sorted alphabetically:\n" + this.performListCommand();
     }
 
     /**
