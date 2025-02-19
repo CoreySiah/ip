@@ -8,7 +8,6 @@ package nat;
 public class Nat {
     protected Storage storage;
     protected TaskList taskList;
-    private Ui ui;
 
     /**
      * Constructor for the Nat class.
@@ -18,10 +17,10 @@ public class Nat {
     public Nat() {
         this.storage = new Storage("src/main/java/data/data.txt");
         this.taskList = new TaskList(storage.load());
-        this.ui = new Ui();
 
         // Assertion: TaskList should never be null after initialization
         assert this.taskList != null : "TaskList should not be null!";
+
     }
 
     /**
@@ -49,7 +48,7 @@ public class Nat {
         case "find":
             return this.taskList.performFindCommand(commandParts[1]);
         default:
-            return this.ui.printErrorCommand();
+            return "Oh no! I don't know what you mean; please try again!";
         }
     }
 }
