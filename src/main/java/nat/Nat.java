@@ -48,7 +48,7 @@ public class Nat {
         case "find":
             return this.taskList.performFindCommand(commandParts[1]);
         default:
-            return "Oh no! I don't know what you mean; please try again!";
+            return "Oh no! I do not understand that command; please try again!";
         }
     }
 }
