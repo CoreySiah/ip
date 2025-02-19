@@ -151,7 +151,6 @@ bye
 ---
 
 ## **Command Summary**
-## Command Summary
 
 | Command | Description |
 |---------|------------|
