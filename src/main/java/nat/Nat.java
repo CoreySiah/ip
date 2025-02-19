@@ -20,6 +20,7 @@ public class Nat {
 
         // Assertion: TaskList should never be null after initialization
         assert this.taskList != null : "TaskList should not be null!";
+
     }
 
     /**
